@@ -17,6 +17,7 @@ class Welcome extends CI_Controller
 		$this->form_validation->set_rules('_password','Password','trim|required');
 		if ($this->form_validation->run() == false) {	
 			$data['kel'] = $this->db->query("SELECT * FROM kelompok")->result_array();
+			$data['jab'] = $this->db->query("SELECT * FROM jabatan")->result_array();
 			$this->load->view('adm/login',$data);
 		}
 		else{
@@ -67,43 +68,30 @@ class Welcome extends CI_Controller
 	}
 // END--PROSES--LOGIN
 
-	public function registration()
+	public function regist()
 	{
-		$this->form_validation->set_rules('_user', 'Name','required|trim');//validasi nama harus ada
-		$this->form_validation->set_rules('_email','Email','required|trim|valid_email|is_unique[auth_user.npp]',[
-			'is_unique'=>'Email ini sudah terdaftar! |  gunakan email lain! ..'
-			]); //validasi email harus ada
+		$awalanwa = substr($_POST['no_wa'],0,1);
+			if($awalanwa=='0'){$no_wa = "62".substr($_POST['no_wa'],1,20);}
+			else if($awalanwa=='6'){$no_wa = $_POST['no_wa'];}
+			else{$no_wa = $_POST['no_wa'];}
 
-		$this->form_validation->set_rules('_pass1', 'Password','required|trim|min_length[5]|matches[_pass2]',[
-			'matches'=>'Password harus sama!',	
-			'min_length'=>'Password terlalu pendek, minimal 5 karakter!'
-			]);//validasi nama harus ada
-		$this->form_validation->set_rules('_pass2', 'Password','matches[_pass1]');//validasi nama harus ada
+		$data=
+			[ 
+			'npp'			=> strtoupper($_POST['npp']),
+			'nama' 			=> $_POST['nama'],
+			'no_wa'			=> $no_wa,
+			'id_kelompok' 	=> $_POST['kelompok'],
+			'id_jabatan'	=> $_POST['jabatan'],
+			'password'		=> password_hash('bankbni',PASSWORD_DEFAULT),
+			'active' 		=> '0',
+			'created_date'	=> date("Y-m-d")
+		];
 
-		if($this->form_validation->run()==false){	
-			$data['kodeadm']=$this->My_model->kodeadmin();
-			$this->load->view('adm/registration',$data);
-		}else{
-			$data=
-				[ // untuk memasukkan data ke database
-					/*htmlspecialchars() berfungsi untuk filter dari karakter aneh*/
-				'auth_id'			=> $this->input->post('_kode',true),
-				'auth_username' 	=> htmlspecialchars($this->input->post('_user',true)),
-				'npp'				=> htmlspecialchars($this->input->post('_email',true)),
-				'auth_password' 	=> password_hash($this->input->post('_pass1'),PASSWORD_DEFAULT),
-				'auth_image'		=> htmlspecialchars('default.jpg'),
-				'auth_level'		=> '2',
-				'auth_date_created' => date("Y-m-d"),
-				'auth_is_active'	=> '1',
-				'auth_default_password'=> password_hash('peiganteng',PASSWORD_DEFAULT)
-			];
-
-			$this->db->insert('auth_user',$data);
-			$this->session->set_flashdata('message','<div class="alert alert-warning text-center" role="alert">Selamat! akun anda berhasil didaftarkan,<br> silahkan aktivasi!
-				</div>');
-			redirect('adm/welcome/index');
-		}
-		
+		$this->db->insert('pegawai',$data);
+		echo "Akun berhasil didaftarkan, Silhkan Login";
+		// $this->session->set_flashdata('message','<div class="alert alert-warning text-center" role="alert">,<br> silahkan aktivasi!
+		// 	</div>');
+		// redirect('adm/welcome/index');
 	}
 	public function logout_dashboard()
 	{

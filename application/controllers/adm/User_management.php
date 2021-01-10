@@ -7,16 +7,18 @@ class User_management extends MY_Controller
 	{
 		parent::__construct();
 		$this->load->library('custom_library');
-		if($this->session->userdata('status') != "login"){
-			$this->session->set_flashdata('message','<div class="alert alert-danger text-center" role="alert">Anda Harus Login!</div>');
-			redirect(base_url('administrator/welcome'));
-		}
+		// if($this->session->userdata('status') != "login"){
+		// 	$this->session->set_flashdata('message','<div class="alert alert-danger text-center" role="alert">Anda Harus Login!</div>');
+		// 	redirect(base_url('administrator/welcome'));
+		// }
 	}
 
 	public function index()
 	{
-        $data['auth']=$this->My_model->get_user();
-		$this->page('administrator/user/user_management',$data);
+		$data['pegawai']=$this->db->query("SELECT * FROM pegawai a
+											LEFT JOIN kelompok b on a.id_kelompok=b.id_kelompok
+											LEFT JOIN jabatan c on a.id_jabatan=c.id_jabatan")->result_array();
+		$this->page('adm/user/view',$data);
 	}
 	
     public function myuser()
@@ -24,7 +26,7 @@ class User_management extends MY_Controller
 		$id=$this->session->userdata('data')['auth_id'];
 		$this->db->join('menu_grup l','l.id_grup = auth_user.auth_level' ,'left');
 		$this->db->join('status s','s.id = auth_user.auth_is_active' ,'left');
-        $data['auth']=$this->db->get_where('auth_user',['auth_id'=>$id])->row_array();
+        $data['auth']=$this->db->get_where('pegawai',['id_pegawai'=>$id])->row_array();
 		$this->page('administrator/user/myuser',$data); 
     }
     public function e()

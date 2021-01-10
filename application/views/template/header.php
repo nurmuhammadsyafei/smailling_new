@@ -37,9 +37,9 @@
   
 </head>
 <?php // php untuk ambil data user berdasarkan session
-    $id   =$this->session->userdata('data')['auth_id'] ;
+    $id   ='15' ;
     $user = $this->db->query("SELECT * FROM 
-    auth_user a left join menu_grup b on a.auth_level=b.id_grup where a.auth_id='$id'")->row_array();
+    pegawai a left join menu_grup b on a.id_jabatan=b.id_grup where a.id_pegawai='$id'")->row_array();
     ?>
 <body class="no-skin">
 
@@ -51,7 +51,7 @@
         <form action="<?= base_url('administrator/data/upload_data') ?>" method="POST" enctype="multipart/form-data">
             <div class="modal-header center">
                
-                <img class="nav-user-photo " src="<?= base_url('image/').$user['auth_image'] ?>" 
+                <img class="nav-user-photo " src="<?= base_url('image/abdi.jpg') ?>" 
                 data-toggle="modal" data-target="#modal-info" style="width: 80%;"  /><br>
                 <h5><b><?= $_SESSION['data']['auth_username']?></b></h5>
             </div>
@@ -89,10 +89,10 @@
 
           <li class="light-blue dropdown-modal">
             <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-              <img class="nav-user-photo" src="<?= base_url('image/').$user['auth_image'] ?>" />
+              <img class="nav-user-photo" src="<?= base_url('image/abdi.jpg') ?>" />
               <span class="user-info">
                 <small>Welcome,</small>
-                <?= $_SESSION['data']['auth_username'] ?>
+                Username
               </span>
 
               <i class="ace-icon fa fa-caret-down"></i>
@@ -139,8 +139,8 @@
       </script>
 
       <div class="sidebar-shortcuts" id="sidebar-shortcuts">
-      <img class="nav-user-photo" src="<?= base_url('image/').$user['auth_image'] ?>" data-toggle="modal" data-target="#modal-info" style="width: 20%;"  /><br>
-      <h5><b><?= $_SESSION['data']['auth_username']?></b></h5>
+      <img class="nav-user-photo" src="<?= base_url('image/abdi.jpg') ?>" data-toggle="modal" data-target="#modal-info" style="width: 20%;"  /><br>
+      <h5><b>username</b></h5>
         <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
           <button class="btn btn-success">
             <i class="ace-icon fa fa-signal"></i>
@@ -172,10 +172,10 @@
 
         <?php 
 
-        $data=$this->db->get_Where('menu_access',['id_grup'=>$user['auth_level']])->result_array();
+        $data=$this->db->get_Where('menu_access',['id_grup'=>$user['id_jabatan']])->result_array();
         foreach($data as $data1){
-         $data2[]=$data1['id_menu'];
-       }
+          $data2[]=$data1['id_menu'];
+        }
 
        $this->db->where_in('id',$data2);
        $this->db->where('level',1);
