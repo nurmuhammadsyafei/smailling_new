@@ -315,17 +315,19 @@
             $(".spin").css("display","inline-block"); //spinner loading start
           },
           success:function(response){
-            // var ResObj   = JSON.parse(response);
-            //   if(ResObj.parameter=='1'){
-            //     alert(ResObj.pesan);
-            //     $(".spin").css("display","none"); 
-            //   }else{
-            //     $(".spin").css("display","none"); 
-            //     $('#nomorwa').html(ResObj.no_wa);
-            //     $('#rowotp').show(100);
-            //     // alert(ResObj.no_wa);
-            //     $('#rowlogin').hide(100);
-            //   }
+            var ResObj   = JSON.parse(response);
+              if(ResObj.id=='1'){
+                alert(ResObj.pesan);
+                $(".spin").css("display","none"); 
+                $('#otp1').focus();
+              }else{
+                // alert()
+                // $(".spin").css("display","none"); 
+                // $('#nomorwa').html(ResObj.no_wa);
+                // $('#rowotp').show(100);
+                // // alert(ResObj.no_wa);
+                // $('#rowlogin').hide(100);
+              }
           }
         })
       }

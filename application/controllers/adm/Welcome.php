@@ -67,6 +67,24 @@ Kode Verifikasi : ".$otp."
 
 	public function verivikasiotp(){
 		var_dump($_POST);
+		$npp = $_POST['npp'];
+		$otp  = $_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'];
+		
+		// verivikasi otp kiriman dengan yang ada
+		$user = $this->db->query("SELECT * FROM pegawai where npp='$npp'")->row_array();
+		if($user['otp']==$otp){
+			echo "SAMA";
+		}else{
+			echo json_encode(['id'=>'1','pesan'=>'Invalid OTP!']);
+		}
+
+		// update is_user dan updated_otp di tabel otp
+
+		// kosongkan field otp di tabel pegawai
+		
+		// buat session login
+
+
 	}
 
 
