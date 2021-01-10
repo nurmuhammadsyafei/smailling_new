@@ -1,3 +1,24 @@
+/* OTP */
+.otp{
+	color:red;
+	/* padding:0px; */
+	font-size:24px; 
+	text-align:center;
+	width:100%;
+}
+.form_otp{
+	padding-left:23%;
+	padding-right:23%;
+	/* width:60%; */
+	margin-top:20px;
+}
+.kol-otp{
+	/* background-color: salmon; */
+	/* border:1px solid black; */
+	margin-left:10px
+}
+/* OTP */
+
 .alert-ku{
 	margin-left:90px;
 	font-size:17px;

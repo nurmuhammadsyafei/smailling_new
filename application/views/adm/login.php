@@ -48,7 +48,7 @@
 
 
 <body class="login-layout mylogin-page" >
-  <div class="main-container" style="display:none" id="rowlogin">
+  <div class="main-container"  id="rowlogin">
     <div class="main-content">
       <div class="row" >
         <div class="col-sm-10 col-sm-offset-1">
@@ -67,7 +67,7 @@
                   <?= form_open( base_url('adm/welcome') ,['method' => 'POST']); ?>
                   <fieldset>
                       <b class="pull-left">Npp</b>
-                        <input name="npp" type="text" class="form-control" placeholder="Npp" />
+                        <input name="loginnpp" id="loginnpp" type="text" class="form-control loginnpp" placeholder="Npp" maxlength='7' />
 
                     <!-- <label class="block clearfix">
                       <span class="block input-icon input-icon-right">
@@ -80,8 +80,7 @@
                       <div class="space-4"></div>
                         <b id="backtoregist">Registrasi</b>
                       <button type="button" class="width-35 pull-right btn btn-sm btn-primary" id="sendotp">
-                        <i class="ace-icon fa fa-key"></i>
-                        <span class="bigger-110">Berikutnya</span>
+                        <span class="bigger-110">Berikutnya <i class="fa fa-adjust spin" style="display:none"></i> </span>
                       </button>
                     </div>
 
@@ -97,7 +96,7 @@
   </div>
 
   <!-- START OTP -->
-  <div class="main-container" id="rowotp">
+  <div class="main-container" id="rowotp" style="display:none">
     <div class="main-content">
       <div class="row" >
         <div class="col-sm-10 col-sm-offset-1">
@@ -114,9 +113,27 @@
                 <div class="widget-main center">
 
                   <fieldset>
-                  <center><p style="width:59%;">Masukkan <b>OTP</b> yang dikirimkan ke nomor whatsap anda</p></center>
-                      <b class="pull-left">Npp</b>
-                        <input name="npp" type="text" class="form-control" placeholder="Npp" />
+                  <center><p style="width:70%;font-family: 'Times New Roman', Times, serif;font-size:16px">Masukkan <b>OTP</b> yang dikirimkan ke nomor whatsap anda <b id="nomorwa"></b></p></center>
+                      
+                  <div class="form_otp">
+                    <center>
+                    <table>
+                        <thead>
+                            <tr>
+                            <!-- <input type="hidden" name="idnpp" id="idnpp" value="<?= $idnpp ?>"> -->
+                                
+                                <th class="kol-otp"><input type="text" class="form-control otp" id="otp1" maxlength="1"  ></th>
+                                <th style="color:transparent">-</th>
+                                <th class="kol-otp"><input type="text" class="form-control otp" id="otp2" maxlength="1" ></th>
+                                <th style="color:transparent">-</th>
+                                <th class="kol-otp"><input type="text" class="form-control otp" id="otp3" maxlength="1" ></th>
+                                <th style="color:transparent">-</th>
+                                <th class="kol-otp"><input type="text" class="form-control otp" id="otp4" maxlength="1" ></th>
+                              </tr>
+                            </thead>
+                          </table>
+                        </center>
+                </div>
 
                     <!-- <label class="block clearfix">
                       <span class="block input-icon input-icon-right">
@@ -127,11 +144,9 @@
                     <div class="space-6"></div>
                     <div class="clearfix">
                       <div class="space-4"></div>
-                        <b id="backtoregist">Registrasi</b>
-                      <button type="button" class="width-35 pull-right btn btn-sm btn-primary" id="ot
-                      ">
-                        <i class="ace-icon fa fa-key"></i>
-                        <span class="bigger-110">Berikutnya</span>
+                        <b id="backtologinotp">Back</b>
+                      <button type="button" class="width-35 pull-right btn btn-sm btn-primary" id="verivikasiotp">
+                        <span class="bigger-110">Verivikasi <i class="fa fa-adjust spin"></i></span>
                       </button>
                     </div>
 
@@ -219,14 +234,104 @@
   $(document).ready(function(){ //jquery script
 
     $('#backtologin').click(function(){
-      // alert("OK")
       $('#rowregistrasi').hide(100);
       $('#rowlogin').show(100);
     })
 
-    $("#sendotp").click(function(){
-      alert("OK")
+    $('#backtologinotp').click(function(){
+      $('#rowotp').hide(100);
+      $('#rowlogin').show(100);
     })
+
+    // FOCUS OTP
+    $('#otp1').focus();
+    $('#otp1').keyup(function(evt){
+        $('#otp2').focus();
+    })
+    $('#otp2').keyup(function(evt){
+        $('#otp3').focus();
+    })
+    $('#otp3').keyup(function(evt){
+        $('#otp4').focus();
+    })
+    // ENDFOCUS OTP
+
+    $("#sendotp").click(function(){
+      var loginnpp = $('.loginnpp').val();
+      var panjang  = loginnpp.length;
+      if(loginnpp==''){
+        alert("Npp Wajib Isi!");$('.loginnpp').focus();
+      }else{
+        if(panjang!='7'){
+          alert("Npp Wajib 7 Digit !");$('.loginnpp').focus();
+        }else{
+          $.ajax({
+            type : "POST",
+            url  : "<?= base_url('adm/welcome/sendotp1') ?>",
+            data : {
+              loginnpp  : loginnpp
+            },
+            beforeSend:function(){
+                $(".spin").css("display","inline-block"); //spinner loading start
+            },
+            success:function(response){
+              var ResObj   = JSON.parse(response);
+                if(ResObj.parameter=='1'){
+                  alert(ResObj.pesan);
+                  $(".spin").css("display","none"); 
+                }else{
+                  $(".spin").css("display","none"); 
+                  $('#nomorwa').html(ResObj.no_wa);
+                  $('#rowotp').show(100);
+                  // alert(ResObj.no_wa);
+                  $('#rowlogin').hide(100);
+                }
+            }
+          })
+        }
+      }
+    });
+    // VERIVIKASI OTP
+    $('#verivikasiotp').click(function(){
+      var otp1 = $('#otp1').val();
+      var otp2 = $('#otp2').val();
+      var otp3 = $('#otp3').val();
+      var otp4 = $('#otp4').val();
+      var npp  = $('.loginnpp').val();
+      if(otp1==''||otp2==''||otp3==''||otp4==''){
+        alert("Lengkapi OTP !");
+      }else{
+        $.ajax({
+          type  : "POST",
+          url   : "<?= base_url('adm/welcome/verivikasiotp') ?>",
+          data  : {
+            npp   : npp,
+            otp1 : otp1,
+            otp2 : otp2,
+            otp3 : otp3,
+            otp4 : otp4
+          },
+          beforeSend:function(){
+            $(".spin").css("display","inline-block"); //spinner loading start
+          },
+          success:function(response){
+            // var ResObj   = JSON.parse(response);
+            //   if(ResObj.parameter=='1'){
+            //     alert(ResObj.pesan);
+            //     $(".spin").css("display","none"); 
+            //   }else{
+            //     $(".spin").css("display","none"); 
+            //     $('#nomorwa').html(ResObj.no_wa);
+            //     $('#rowotp').show(100);
+            //     // alert(ResObj.no_wa);
+            //     $('#rowlogin').hide(100);
+            //   }
+          }
+        })
+      }
+      // window.location.assign("<?= base_url('adm/welcome/') ?>"+otp4+"/"+otp2+"/"+otp3+"/"+otp1+"/"+idnpp);
+    })
+
 
     $('#backtoregist').click(function(){
       // alert("OK")

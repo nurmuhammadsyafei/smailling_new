@@ -25,6 +25,52 @@ class Welcome extends CI_Controller
 		}
 		
 	}
+
+
+	public function sendotp1(){
+		// $npp
+		$npp = strtoupper($_POST['loginnpp']);
+		$cek=$this->db->query("SELECT * FROM pegawai where npp='$npp'")->row_array();
+		if($cek==NULL){
+			echo json_encode([
+						'pesan'		=> "Maaf Npp Tidak Terdaftar, Silahkan Registrasi !",
+						'parameter'	=> '1']);
+		}else{
+			$otp        = random_int(0, 9).random_int(0, 9).random_int(0, 9).random_int(0, 9);  //buat 4 digit otp random
+			$dataotp=[
+				'npp'			=> $npp,
+				'otp'			=> $otp,
+				'created_otp'	=> date("Y-m-d H:i:s"),
+				'is_used'		=>'0'
+			];  								//array siapkan data otp
+			$this->db->insert('otp',$dataotp); 			//insert ke tabel otp
+			$this->db->query("UPDATE pegawai set otp='$otp' where npp='$npp'"); // update di tabel pegawai
+			
+    // SEND OTP TO SALES---
+    file_get_contents('https://eu191.chat-api.com/instance150259/sendMessage?token=9k4ol6iblh0tl78k', false, 
+    stream_context_create(['http' => [
+            'method'  => 'POST',
+            'header'  => 'Content-type: application/json',
+            'content' => json_encode(['phone' => $cek['no_wa'],'body' =>"_BNI Divisi SLN_
+Kode Verifikasi : ".$otp."
+
+*JANGAN* memberitahu kode rahasia ini ke siapapun termasuk pihak yang mengaku _BNI Divisi SLN_" ])
+        ]
+    ]));
+        // END SEND OTP TO SALES---
+			echo json_encode([
+				'pesan'		=> "Npp Ditemukan !",  // kirim respon json, gapenting sih 
+				'no_wa'		=> $cek['no_wa'],
+				'parameter'	=> '2']);
+		}
+	}
+
+	public function verivikasiotp(){
+		var_dump($_POST);
+	}
+
+
+
 	private function _login()
 	{/*ambil data dari form email dan password saat login*/
 		$email   =$this->input->post('_email',true);
