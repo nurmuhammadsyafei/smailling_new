@@ -82,7 +82,7 @@ class Welcome extends CI_Controller
 			'no_wa'			=> $no_wa,
 			'id_kelompok' 	=> $_POST['kelompok'],
 			'id_jabatan'	=> $_POST['jabatan'],
-			'password'		=> password_hash('bankbni',PASSWORD_DEFAULT),
+			'otp'			=> '',
 			'active' 		=> '0',
 			'created_date'	=> date("Y-m-d")
 		];

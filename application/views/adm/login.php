@@ -66,27 +66,22 @@
 
                   <?= form_open( base_url('adm/welcome') ,['method' => 'POST']); ?>
                   <fieldset>
-                    <?= $this->session->flashdata('message'); ?>
-                    <label class="block clearfix">
-                      <span class="block input-icon input-icon-right">
-                        <input name="_email" type="text" class="form-control" placeholder="Username" />
-                        <i class="ace-icon fa fa-user"></i>
-                      </span>
-                    </label>
+                      <b class="pull-left">Npp</b>
+                        <input name="npp" type="text" class="form-control" placeholder="Npp" />
 
-                    <?= $this->session->flashdata('message_password'); ?>
-                    <label class="block clearfix">
+                    <!-- <label class="block clearfix">
                       <span class="block input-icon input-icon-right">
                         <input name="_password"type="password" class="form-control" placeholder="Password" />
                         <i class="ace-icon fa fa-lock"></i>
                       </span>
-                    </label>
-
+                    </label> -->
+                    <div class="space-6"></div>
                     <div class="clearfix">
-                        <b id="backtoregist">Login</b>
-                      <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                      <div class="space-4"></div>
+                        <b id="backtoregist">Registrasi</b>
+                      <button type="button" class="width-35 pull-right btn btn-sm btn-primary" id="sendotp">
                         <i class="ace-icon fa fa-key"></i>
-                        <span class="bigger-110">Login</span>
+                        <span class="bigger-110">Berikutnya</span>
                       </button>
                     </div>
 
@@ -101,10 +96,60 @@
     </div>
   </div>
 
+  <!-- START OTP -->
+  <div class="main-container" id="rowotp">
+    <div class="main-content">
+      <div class="row" >
+        <div class="col-sm-10 col-sm-offset-1">
+          <div class="login-container">
+            <div class="center form-atas">
+              <h1 class="company-text-atas">
+                <i class="ace-icon fa cl-birubni"></i><i class="ace-icon fa"style="color:white">Login</i>
+                <i class="ace-icon fa cl-birubni">SM</i><i class="ace-icon fa"style="color:white">ailling</i>
+              </h1>
+              <h4 class="company-text bold">&copy; <span class="white">BNI</span> Divisi SLN</h4>
+            </div>
+            <div class="position-relative">
+              <div class="my-widget-body " >
+                <div class="widget-main center">
+
+                  <fieldset>
+                  <center><p style="width:59%;">Masukkan <b>OTP</b> yang dikirimkan ke nomor whatsap anda</p></center>
+                      <b class="pull-left">Npp</b>
+                        <input name="npp" type="text" class="form-control" placeholder="Npp" />
+
+                    <!-- <label class="block clearfix">
+                      <span class="block input-icon input-icon-right">
+                        <input name="_password"type="password" class="form-control" placeholder="Password" />
+                        <i class="ace-icon fa fa-lock"></i>
+                      </span>
+                    </label> -->
+                    <div class="space-6"></div>
+                    <div class="clearfix">
+                      <div class="space-4"></div>
+                        <b id="backtoregist">Registrasi</b>
+                      <button type="button" class="width-35 pull-right btn btn-sm btn-primary" id="ot
+                      ">
+                        <i class="ace-icon fa fa-key"></i>
+                        <span class="bigger-110">Berikutnya</span>
+                      </button>
+                    </div>
+
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END OTP -->
+
 
   <!-- REGISTRASI -->
 
-  <div class="main-container"  id="rowregistrasi">
+  <div class="main-container"  style="display:none" id="rowregistrasi">
     <div class="main-content">
       <div class="row" >
         <div class="col-sm-10 col-sm-offset-1">
@@ -178,6 +223,11 @@
       $('#rowregistrasi').hide(100);
       $('#rowlogin').show(100);
     })
+
+    $("#sendotp").click(function(){
+      alert("OK")
+    })
+
     $('#backtoregist').click(function(){
       // alert("OK")
       $('#rowregistrasi').show(100);
