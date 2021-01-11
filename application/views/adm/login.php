@@ -301,7 +301,7 @@
       if(otp1==''||otp2==''||otp3==''||otp4==''){
         alert("Lengkapi OTP !");
       }else{
-        $.ajax({
+        $.ajax({ 
           type  : "POST",
           url   : "<?= base_url('adm/welcome/verivikasiotp') ?>",
           data  : {
