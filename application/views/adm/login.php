@@ -299,7 +299,7 @@
       var otp4 = $('#otp4').val();
       var npp  = $('.loginnpp').val();
       if(otp1==''||otp2==''||otp3==''||otp4==''){
-        alert("Lengkapi OTP !");
+        alert("Lengkapi OTP !");$('#otp1').focus();
       }else{
         $.ajax({ 
           type  : "POST",
@@ -320,18 +320,14 @@
                 alert(ResObj.pesan);
                 $(".spin").css("display","none"); 
                 $('#otp1').focus();
-              }else{
-                // alert()
-                // $(".spin").css("display","none"); 
-                // $('#nomorwa').html(ResObj.no_wa);
-                // $('#rowotp').show(100);
-                // // alert(ResObj.no_wa);
-                // $('#rowlogin').hide(100);
+              }else if(ResObj.id=='2'){
+                alert(ResObj.pesan);
+                window.location.assign("<?= base_url('adm/dash') ?>");
               }
           }
         })
       }
-      // window.location.assign("<?= base_url('adm/welcome/') ?>"+otp4+"/"+otp2+"/"+otp3+"/"+otp1+"/"+idnpp);
+      // 
     })
 
 

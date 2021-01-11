@@ -86,6 +86,58 @@
       <div class="navbar-buttons navbar-header pull-right" role="navigation">
         <ul class="nav ace-nav">
 
+<!-- MESSAGE -->
+              <?php 
+              $npp = $this->session->userdata("smailling_npp");
+              $datasurat  =$this->db->query("SELECT * FROM surat a
+                                            LEFT JOIN pegawai b on a.npp_pemilik=b.npp where npp_tujuan='$npp' and terbaca='0'")->result_array();
+              $blmterbaca =$this->db->query("SELECT count(*)'jml' FROM surat where npp_tujuan='$npp' and terbaca='0'")->row_array(); ?>
+            <li class="green dropdown-modal" > 
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+								<i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+								<span class="badge badge-danger"><?= $blmterbaca['jml'] ?></span>
+							</a>
+
+							<ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+								<li class="dropdown-header">
+									<i class="ace-icon fa fa-envelope-o"></i>
+									<?= $blmterbaca['jml'].' Surat Belum Di Approve' ?>
+								</li>
+
+								<li class="dropdown-content">
+									<ul class="dropdown-menu dropdown-navbar">
+
+              <?php 
+              foreach($datasurat as $surat){ ?>
+										<li>
+											<a href="#" class="clearfix">
+												<img src="<?= base_url('image/mail_orange.png')?>" class="msg-photo" alt="" />
+												<span class="msg-body">
+													<span class="msg-title">
+														<span class="blue"><?= $surat['nama']?></span>
+														<?= $surat['perihal_surat'] ?>
+													</span>
+
+													<span class="msg-time">
+														<i class="ace-icon fa fa-clock-o"></i>
+														<span><?= date("Y-m-d",strtotime($surat['tgl_buat'])) ?></span>
+													</span>
+												</span>
+											</a>
+										</li>
+              <?php } ?>
+									</ul>
+								</li>
+
+								<li class="dropdown-footer">
+									<a href="inbox.html">
+										See all messages
+										<i class="ace-icon fa fa-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+						</li>
+<!-- ENDMESSAGE -->
 
           <li class="light-blue dropdown-modal">
             <a data-toggle="dropdown" href="#" class="dropdown-toggle">

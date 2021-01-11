@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class Dashboard extends MY_Controller		
+class Dash extends MY_Controller		
 {
 	 
 	public function __construct()
@@ -10,7 +10,7 @@ class Dashboard extends MY_Controller
 		parent::__construct();
 		$this->load->library('custom_library');
 		date_default_timezone_set('Asia/Jakarta');
-		if($this->session->userdata('status') != "login"){
+		if($this->session->userdata('verivikasi') != "verivied"){
 			$this->session->set_flashdata('message','<div class="alert alert-danger text-center" role="alert">Anda Harus Login!</div>');
 			redirect(base_url('administrator/welcome'));
 		}
@@ -18,9 +18,7 @@ class Dashboard extends MY_Controller
 
 	public function index()
 	{
-		$this->load->library('custom_library'); 
-
-		$this->page('administrator/dashboard');
+		$this->page('adm/dash/view');
 	}
 	
 	public function data_monitoring(){
