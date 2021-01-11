@@ -21,17 +21,17 @@ class Access extends MY_Controller
         $data['jabatan']=$this->db->query('SELECT * FROM jabatan')->result_array();
 		$this->page('adm/access/view',$data);
     }
-    public function add()
+    public function add_jabatan()
     {
         $data=
             [ 
-            'nama_grup' 	=> htmlspecialchars($this->input->post('_nama',true)),
-            'desc_grup'		=> htmlspecialchars($this->input->post('_desc',true)),
+            'nama_jabatan' 	    => htmlspecialchars($this->input->post('_nama',true)),
+        'detail_jabatan'		=> htmlspecialchars($this->input->post('_detail',true))
         ];
-        $this->db->insert('kelompok',$data);
+        $this->db->insert('jabatan',$data);
         $this->session->set_flashdata('message',
-        '<span class="hideMe alert alert-success" role="alert">Penambahan Grup Berhasil !</span>');
-        redirect('adm/grup');
+        '<span class="hideMe alert alert-success" role="alert">Penambahan Jabatan Berhasil !</span>');
+        redirect('adm/access');
     }
     public function view_detail($id)
     { 

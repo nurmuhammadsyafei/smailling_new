@@ -2,7 +2,7 @@
 <div class="modal fade" id="exampleModal">
     <div class="modal-dialog">
         <div class="modal-content">
-        <form action="<?= base_url('adm/access/add_grup') ?>" method="POST">
+        <form action="<?= base_url('adm/access/add_jabatan') ?>" method="POST">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
@@ -10,11 +10,11 @@
             </div>
             <div class="modal-body">
 
-                <div class="row"><div class="col-md-12"><b>Nama Kelompok</b>
+                <div class="row"><div class="col-md-12"><b>Nama Jabatan</b>
                     <input type="text"name="_nama"class="form-control">
                 </div></div>
 
-                <div class="row"><div class="col-md-12"><b>Detail Nama Kelompok</b>
+                <div class="row"><div class="col-md-12"><b>Detail Nama Jabatan</b>
                     <input type="text"name="_detail"class="form-control">
                 </div></div>
 
@@ -45,13 +45,13 @@
             <div class="box-header with-border">
                 
                 <div class="row">
-                    <div class="col-md-3">
-                        <h3 class="box-title">Access Grup</h3>
+                    <div class="col-md-4">
+                        <h3 class="box-title">Access Menu</h3>
                     </div>
                     <div class="col-md-3" >
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">New Grup</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Jabatan Baru</button>
                     </div>
-                    <div class="col-md-6" id="mydiv">
+                    <div class="col-md-5" id="mydiv">
                         <?= $this->session->flashdata('message'); ?>
                     </div>
                 </div>

@@ -223,12 +223,12 @@
         </li> -->
 
         <?php 
-
+        
         $data=$this->db->get_Where('menu_access',['id_grup'=>$user['id_jabatan']])->result_array();
         foreach($data as $data1){
           $data2[]=$data1['id_menu'];
         }
-
+        var_dump($user['id_jabatan']);
        $this->db->where_in('id',$data2);
        $this->db->where('level',1);
        $this->db->order_by('sort','ASC');
