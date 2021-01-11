@@ -22,7 +22,7 @@
             <div class="box-body no-padding">
                 <div class="row">
                     <div class="col-md-12 col-sm-9">
-                        <form action="<?= base_url('administrator/menu/add')?>"method="POST">
+                        <form action="<?= base_url('adm/menu/add')?>"method="POST">
                             <div class="modal-body">
                                 <div class="row"><div class="col-md-12"><i>Nama Menu</i>
                                     <input type="text" name="_nama" class="form-control">

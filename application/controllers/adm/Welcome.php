@@ -90,50 +90,6 @@ Kode Verifikasi : ".$otp."
 	}
 
 
-
-	private function _login()
-	{/*ambil data dari form email dan password saat login*/
-		$email   =$this->input->post('_email',true);
-		$password=$this->input->post('_password',true);
-		/*cek apakah ada data di database yang sesuai dengan email inputan login */
-		$user = $this->db->get_where('auth_user',['npp'=>$email])->row_array();
-		if($user){	
-			//jika user aktif
-			if (password_verify($password, $user['auth_password'])) {
-				//cek password nya --
-				if($user['auth_is_active']==1) {
-					$data=[
-						'data'=>$user,
-						'status'=>'login'
-					]; 
-					$this->session->set_userdata($data);
-					$log=[
-						'nama'=>$_SESSION['data']['auth_username'],
-						'tanggal'=>date("Y-m-d H:i:s")
-					];
-					$this->db->insert('data_login',$log);
-					// var_dump($_SESSION);die();
-					// $this->db->query("INSERT INTO ");
-					redirect('adm/dashboard');	//Jika lolos smua , diarahkan ke link 
-				}else{
-					$this->session->set_flashdata('message','<span style="color:red;font-weight:bold" >User anda tidak aktif ! Hubungi Admin
-						</span>');
-					redirect('adm/welcome');
-				}
-			}else{
-				$this->session->set_flashdata('message_password','<span style="color:red;font-weight:bold" >Password salah !
-					</span>');
-				redirect('adm/welcome');
-			}
-		}else{
-			$this->session->set_flashdata('message','<span style="color:red;font-weight:bold">Email Tidak terdaftar !
-						</span>');
-			redirect('adm/welcome');
-
-		}	
-	}
-// END--PROSES--LOGIN
-
 	public function regist()
 	{
 		$awalanwa = substr($_POST['no_wa'],0,1);
@@ -161,8 +117,9 @@ Kode Verifikasi : ".$otp."
 	}
 	public function logout_dashboard()
 	{
-		$this->session->unset_userdata('data');
-		$this->session->unset_userdata('status');
+		$this->session->unset_userdata('verivikasi');
+		$this->session->unset_userdata('smailling_npp');
+		$this->session->unset_userdata('smailling_no_wa');
 		redirect(base_url('adm/welcome')); 
 	}
 	//LUPA PASSWORD

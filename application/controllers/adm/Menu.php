@@ -7,9 +7,9 @@ class Menu extends MY_Controller
 	{
 		parent::__construct();
 		$this->load->library('custom_library');
-		if($this->session->userdata('status') != "login"){
+		if($this->session->userdata('verivikasi') != "verivied"){
 			$this->session->set_flashdata('message','<div class="alert alert-danger text-center" role="alert">Anda Harus Login!</div>');
-			redirect(base_url('administrator/welcome'));
+			redirect(base_url('adm/welcome'));
 		}
 	}
 
@@ -17,7 +17,7 @@ class Menu extends MY_Controller
 	{
         $data['menu']=$this->db->query("Select * from menu order by sort asc")->result_array();
         
-		$this->page('administrator/menu/list',$data);
+		$this->page('adm/menu/list',$data);
 	}
 	public function add()
 	{
@@ -30,22 +30,22 @@ class Menu extends MY_Controller
 			'access'=>1
 		];
 		$this->db->insert('menu',$data);
-		redirect(base_url('administrator/menu'));
+		redirect(base_url('adm/menu'));
 	}
 	
     public function delete_menu($id)
     {
         $this->db->query("DELETE from menu where id='$id'");
-        redirect('administrator/menu');
+        redirect('adm/menu');
     }
 	public function opennewmenu()
 	{
-		$this->load->view('administrator/menu/new_menu');
+		$this->load->view('adm/menu/new_menu');
 	}
 	public function editmenu($id)
 	{
 		$data['menu']=$this->db->query("Select * from Menu where id='$id'")->row_array();
-		$this->load->view('administrator/menu/edit_menu',$data);
+		$this->load->view('adm/menu/edit_menu',$data);
 	}
 	public function editmenugo()
 	{	
@@ -65,7 +65,7 @@ class Menu extends MY_Controller
 							level='$level',
 							access='$access' WHERE id='$id'");
 							
-		redirect('administrator/menu');
+		redirect('adm/menu');
 	}
     
 }

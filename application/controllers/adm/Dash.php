@@ -12,7 +12,7 @@ class Dash extends MY_Controller
 		date_default_timezone_set('Asia/Jakarta');
 		if($this->session->userdata('verivikasi') != "verivied"){
 			$this->session->set_flashdata('message','<div class="alert alert-danger text-center" role="alert">Anda Harus Login!</div>');
-			redirect(base_url('administrator/welcome'));
+			redirect(base_url('adm/welcome'));
 		}
 	}
 
@@ -52,8 +52,13 @@ class Dash extends MY_Controller
 											LEFT JOIN tele_ask  c ON c.batch = a.batch AND c.id_tele=a.id
 											WHERE a.waktude='$date' AND is_survei='0'AND a.is_assign='0'")->row_array();
 
-		$this->load->view('administrator/dashbord/data_monitoring',$data);
+		$this->load->view('adm/dashbord/data_monitoring',$data);
 	}
+
+	// public function menu(){
+	// 	$data['menu'] = $this->db->query("SELECT * FROM menu")->result_array();
+	// 	$this->page('list',$data);
+	// }
 }
 
 

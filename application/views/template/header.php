@@ -37,9 +37,9 @@
   
 </head>
 <?php // php untuk ambil data user berdasarkan session
-    $id   ='15' ;
+    $npp   =  $this->session->userdata('smailling_npp');
     $user = $this->db->query("SELECT * FROM 
-    pegawai a left join menu_grup b on a.id_jabatan=b.id_grup where a.id_pegawai='$id'")->row_array();
+    pegawai a left join menu_grup b on a.id_jabatan=b.id_grup where a.npp='$npp'")->row_array();
     ?>
 <body class="no-skin">
 
@@ -53,7 +53,7 @@
                
                 <img class="nav-user-photo " src="<?= base_url('image/abdi.jpg') ?>" 
                 data-toggle="modal" data-target="#modal-info" style="width: 80%;"  /><br>
-                <h5><b><?= $_SESSION['data']['auth_username']?></b></h5>
+                <h5><b><?= $user['nama'] ?></b></h5>
             </div>
         </form>
         </div>
@@ -144,7 +144,7 @@
               <img class="nav-user-photo" src="<?= base_url('image/abdi.jpg') ?>" />
               <span class="user-info">
                 <small>Welcome,</small>
-                Username
+                <?= $user['nama'] ?>
               </span>
 
               <i class="ace-icon fa fa-caret-down"></i>
@@ -168,7 +168,7 @@
               <li class="divider"></li>
 
               <li>
-                <a href="<?= base_url('administrator/welcome/logout_dashboard')?>">
+                <a href="<?= base_url('adm/welcome/logout_dashboard')?>">
                   <i class="ace-icon fa fa-power-off"></i>
                   Logout
                 </a>
@@ -192,7 +192,7 @@
 
       <div class="sidebar-shortcuts" id="sidebar-shortcuts">
       <img class="nav-user-photo" src="<?= base_url('image/abdi.jpg') ?>" data-toggle="modal" data-target="#modal-info" style="width: 20%;"  /><br>
-      <h5><b>username</b></h5>
+      <h5><b><?= $user['nama'] ?></b></h5>
         <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
           <button class="btn btn-success">
             <i class="ace-icon fa fa-signal"></i>

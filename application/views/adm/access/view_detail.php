@@ -6,7 +6,7 @@
                 
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="box-title">Access Group <b><?= $grup['nama_grup'] ?></b></h3>
+                        <h3 class="box-title">Access Group <b><?= $grup['nama_kelompok'] ?></b></h3>
                     </div>
                     <div class="col-md-6" id="mydiv">
                         <?= $this->session->flashdata('message'); ?>
@@ -15,7 +15,7 @@
             </div>
             <div class="box-body no-padding">
                 <div class="col-md-11 col-sm-9">
-                    <form action="<?= base_url('administrator/access/tambah_detail')?>" method="POST">
+                    <form action="<?= base_url('adm/access/tambah_detail')?>" method="POST">
                     <input type="hidden" name="id" value="<?= $id ?>">
                     <?php $no=1;
                     foreach ($menu as $dt){  ?>

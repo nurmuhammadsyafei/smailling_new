@@ -16,7 +16,7 @@
             </div>
             <div class="box-body no-padding">
                 <div class="col-md-11 col-sm-9">
-                    <form action="<?= base_url('administrator/menu/editmenugo')?>" method="POST">
+                    <form action="<?= base_url('adm/menu/editmenugo')?>" method="POST">
                         <input type="hidden" class="form-control ml" name="id" value="<?= $menu['id']?>">
                         <i>nama</i>
                         <input type="text" class="form-control ml" name="nama" value="<?= $menu['nama']?>">

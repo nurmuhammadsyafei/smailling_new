@@ -1,25 +1,25 @@
 <script>
      function opennewmenu()
     {   
-        var hal = "<?= base_url('administrator/menu/opennewmenu') ?>";
+        var hal = "<?= base_url('adm/menu/opennewmenu') ?>";
         $("#new").load(hal);
-        $("#new").toggle(400);
-        $("#edit").hide(400)
+        $("#new").toggle(100);
+        $("#edit").hide(100)
     }
     function editmenu(id)
     {
         // alert('oke');
-        var halaman = "<?php echo base_url('administrator/menu/editmenu/') ?>"+id;
+        var halaman = "<?php echo base_url('adm/menu/editmenu/') ?>"+id;
         $("#edit").load(halaman);
-        $("#edit").show(400);
-        $("#new").hide(400);
+        $("#edit").show(100);
+        $("#new").hide(100);
     }
 </script>
 <!-- STAR MODAL NEW -->
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
-        <form action="<?= base_url('administrator/menu/add')?>"method="POST">
+        <form action="<?= base_url('adm/menu/add')?>"method="POST">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
@@ -75,10 +75,10 @@
             <div class="box-body no-padding">
                 <div class="row">
                     <div class="col-md-12 col-sm-9">
-                            <table id="" class="example2 table table-bordered table-striped">
+                            <table id="tabel_menu" class="example2 table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Nama</th>
+                                    <th>Menu</th>
                                     <th>Sort</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -90,15 +90,11 @@
                                         <td><?= $a['sort']?></td>
                                         <td style="margin: auto;width: 19%;">
                                         <div class="btn-group">
-                                            <a href="#" class="btn btn-info" onclick="editmenu(<?= $a['id']?>)"><i class="fa fa-edit"></i></a>
-                                            <!-- <button type="button" class="btn btn-danger"></button> -->
-                                            <a href="<?= base_url("administrator/menu/delete_menu/").$a['id'] ?>"class="btn btn-danger" onclick="return confirm('Hapus Akun Ini ?');"><i class="fa fa-close"></i></a>
+                                            <a href="#" class="btn btn-info btn-minier" onclick="editmenu(<?= $a['id']?>)"><i class="fa fa-edit"></i></a>
+                                            <a href="<?= base_url("adm/menu/delete_menu/").$a['id'] ?>"class="btn btn-danger btn-minier" onclick="return confirm('Hapus Akun Ini ?');"><i class="fa fa-close"></i></a>
                                         </div>
                                         </td>
                                     </tr>
-                                    <!-- MODAL -->
-                                
-                                    <!-- END MODAL -->
                                 <?php } ?> 
                                 </tbody>
                             </table>
@@ -120,4 +116,14 @@
 setTimeout(function() {
     $('#mydiv').fadeOut(5000);
 }, 3000); 
+
+$(document).ready(function() {
+
+$('#tabel_menu').DataTable( {
+    'scrollX': false,
+    "paging":   false,
+    'ordering' : false,
+    "scrollY": 200
+} );
+} );
 </script>

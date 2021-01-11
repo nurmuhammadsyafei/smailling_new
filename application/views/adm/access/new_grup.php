@@ -15,7 +15,7 @@
             </div>
             <div class="box-body no-padding">
                 <div class="col-md-11 col-sm-9">
-                    <form action="<?= base_url('administrator/access/add_grup') ?>" method="POST">
+                    <form action="<?= base_url('adm/access/add_grup') ?>" method="POST">
                         <div class="modal-body">
                             <div class="row"><div class="col-md-12"><i>Nama Grup</i>
                                 <input type="text"name="_nama"class="form-control">
