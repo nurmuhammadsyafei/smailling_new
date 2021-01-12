@@ -6,8 +6,8 @@
   <div class="footer-inner">
     <div class="footer-content">
       <span class="bigger-120">
-        <span class="blue bolder">Sgv</span>
-        TeleVerification <?= date("Y")?>
+        <span class="blue bolder">DGS</span>
+        Application <?= date("Y")?>
       </span>
 
     </div>

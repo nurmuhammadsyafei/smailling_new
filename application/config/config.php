@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 // $config['base_url'] = 'http://192.168.1.5/smailling/';
-$config['base_url'] = 'http://localhost/smailling_new/';
+$config['base_url'] = 'http://localhost:81/smailling_new/';
  
 /*
 |--------------------------------------------------------------------------
