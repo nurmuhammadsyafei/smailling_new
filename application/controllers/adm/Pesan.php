@@ -27,8 +27,8 @@ class Pesan extends MY_Controller
 		$npp 			= $this->session->userdata('smailling_npp');
         $data['pesan'] 	= $this->db->query("SELECT * FROM surat a
                                             LEFT JOIN pegawai b on a.npp_pemilik=b.npp")->result_array();
-		$data['unread'] = $this->db->query("SELECT COUNT(*)'unread' from surat where npp_tujuan='$npp' and terbaca='0'")->row_array();
-        $data['total'] 	= $this->db->query("SELECT COUNT(*)'total' from surat where npp_tujuan='$npp'")->row_array(); 
+		$data['unread'] = $this->db->query("SELECT COUNT(*)'unread' from surat where npp_approver='$npp' and terbaca='0'")->row_array();
+        $data['total'] 	= $this->db->query("SELECT COUNT(*)'total' from surat where npp_approver='$npp'")->row_array(); 
 		$this->load->view('adm/pesan/inbox',$data);
 	}
 	public function notin(){
@@ -54,6 +54,67 @@ class Pesan extends MY_Controller
 												LEFT JOIN divisi c   on b.id_divisi=c.id_divisi 
 												where npp='$npp'")->row_array(); 
 		$this->load->view('adm/pesan/memo',$data);
+	}
+
+	public function insertpesan(){
+		var_dump($_POST);echo"<br><br>";
+		var_dump($_FILES);
+
+
+				$config['upload_path']          = './surat/';
+                $config['allowed_types']        = 'pdf';
+                $config['max_size']             = 0;
+                $config['max_width']            = 0;
+                $config['max_height']           = 0;
+
+				$this->load->library('upload', $config);
+
+				if ( ! $this->upload->do_upload('_surat'))
+                {
+                        $error = array('error' => $this->upload->display_errors());
+
+						var_dump($error);
+                }
+                else
+                {
+                        $data = array('upload_data' => $this->upload->data());
+						var_dump($data);
+                        // $this->load->view('upload_success', $data);
+                }
+	}
+
+
+
+
+
+
+
+	// CONTOH
+	public function contoh(){
+		$this->load->view('adm/pesan/contoh');
+	} 
+	public function upload(){
+		if ($_FILES)
+{
+    $tmp = $_FILES['file_input']['tmp_name'];
+    $type = $_FILES['file_input']['type'];
+    $size = $_FILES['file_input']['size'];
+    $filename = $_FILES['file_input']['name'];
+    $path = pathinfo($_SERVER['PHP_SELF']);
+    $destination = $path['dirname'] . '/' . $filename;
+    if (move_uploaded_file($tmp, $_SERVER['DOCUMENT_ROOT'] . $destination))
+        $status = 1;
+    else
+        $status = 2;
+ 
+    $hasil = array(
+        'status' => $status,
+        'filename' => $filename,
+        'type' => $type,
+        'size' => $size,
+    );
+    echo json_encode($hasil);
+}
 	}
 }
 

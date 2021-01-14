@@ -91,8 +91,8 @@
               <?php 
               $npp = $this->session->userdata("smailling_npp");
               $datasurat  =$this->db->query("SELECT * FROM surat a
-                                            LEFT JOIN pegawai b on a.npp_pemilik=b.npp where npp_tujuan='$npp' and terbaca='0'")->result_array();
-              $blmterbaca =$this->db->query("SELECT count(*)'jml' FROM surat where npp_tujuan='$npp' and terbaca='0'")->row_array(); ?>
+                                            LEFT JOIN pegawai b on a.npp_pembuat=b.npp where npp_approver='$npp' and terbaca='0'")->result_array();
+              $blmterbaca =$this->db->query("SELECT count(*)'jml' FROM surat where npp_approver='$npp' and terbaca='0'")->row_array(); ?>
             <li class="green dropdown-modal" > 
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
