@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Jan 2021 pada 00.27
--- Versi server: 10.4.14-MariaDB
--- Versi PHP: 7.2.34
+-- Generation Time: Jan 12, 2021 at 01:40 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -24,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `divisi`
+-- Table structure for table `divisi`
 --
 
 CREATE TABLE `divisi` (
@@ -34,7 +35,7 @@ CREATE TABLE `divisi` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `divisi`
+-- Dumping data for table `divisi`
 --
 
 INSERT INTO `divisi` (`id_divisi`, `nama_divisi`, `detail_divisi`) VALUES
@@ -43,7 +44,7 @@ INSERT INTO `divisi` (`id_divisi`, `nama_divisi`, `detail_divisi`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jabatan`
+-- Table structure for table `jabatan`
 --
 
 CREATE TABLE `jabatan` (
@@ -53,7 +54,7 @@ CREATE TABLE `jabatan` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `jabatan`
+-- Dumping data for table `jabatan`
 --
 
 INSERT INTO `jabatan` (`id_jabatan`, `nama_jabatan`, `detail_jabatan`) VALUES
@@ -66,7 +67,7 @@ INSERT INTO `jabatan` (`id_jabatan`, `nama_jabatan`, `detail_jabatan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kelompok`
+-- Table structure for table `kelompok`
 --
 
 CREATE TABLE `kelompok` (
@@ -77,7 +78,7 @@ CREATE TABLE `kelompok` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kelompok`
+-- Dumping data for table `kelompok`
 --
 
 INSERT INTO `kelompok` (`id_kelompok`, `nama_kelompok`, `detail_kelompok`, `id_divisi`) VALUES
@@ -92,7 +93,7 @@ INSERT INTO `kelompok` (`id_kelompok`, `nama_kelompok`, `detail_kelompok`, `id_d
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `level`
+-- Table structure for table `level`
 --
 
 CREATE TABLE `level` (
@@ -101,7 +102,7 @@ CREATE TABLE `level` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `level`
+-- Dumping data for table `level`
 --
 
 INSERT INTO `level` (`level_id`, `nama`) VALUES
@@ -111,7 +112,7 @@ INSERT INTO `level` (`level_id`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `menu`
+-- Table structure for table `menu`
 --
 
 CREATE TABLE `menu` (
@@ -125,7 +126,7 @@ CREATE TABLE `menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `menu`
+-- Dumping data for table `menu`
 --
 
 INSERT INTO `menu` (`id`, `nama`, `link`, `icon`, `sort`, `level`, `access`) VALUES
@@ -139,7 +140,7 @@ INSERT INTO `menu` (`id`, `nama`, `link`, `icon`, `sort`, `level`, `access`) VAL
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `menu_access`
+-- Table structure for table `menu_access`
 --
 
 CREATE TABLE `menu_access` (
@@ -148,7 +149,7 @@ CREATE TABLE `menu_access` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `menu_access`
+-- Dumping data for table `menu_access`
 --
 
 INSERT INTO `menu_access` (`id_grup`, `id_menu`) VALUES
@@ -163,7 +164,7 @@ INSERT INTO `menu_access` (`id_grup`, `id_menu`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `menu_grup`
+-- Table structure for table `menu_grup`
 --
 
 CREATE TABLE `menu_grup` (
@@ -173,7 +174,7 @@ CREATE TABLE `menu_grup` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `menu_grup`
+-- Dumping data for table `menu_grup`
 --
 
 INSERT INTO `menu_grup` (`id_grup`, `nama_grup`, `desc_grup`) VALUES
@@ -185,7 +186,7 @@ INSERT INTO `menu_grup` (`id_grup`, `nama_grup`, `desc_grup`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `otp`
+-- Table structure for table `otp`
 --
 
 CREATE TABLE `otp` (
@@ -198,7 +199,7 @@ CREATE TABLE `otp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `otp`
+-- Dumping data for table `otp`
 --
 
 INSERT INTO `otp` (`id_otp`, `npp`, `otp`, `created_otp`, `is_used`, `updated_otp`) VALUES
@@ -243,12 +244,23 @@ INSERT INTO `otp` (`id_otp`, `npp`, `otp`, `created_otp`, `is_used`, `updated_ot
 (39, 'P092043', '7204', '2021-01-11 15:16:16', '1', '2021-01-11 15:16:36'),
 (40, 'P026296', '2620', '2021-01-11 15:21:30', '1', '2021-01-11 15:21:43'),
 (41, '1111111', '7434', '2021-01-11 16:02:37', '0', '0000-00-00 00:00:00'),
-(42, '1111111', '2222', '2021-01-11 16:02:58', '1', '2021-01-11 16:03:07');
+(42, '1111111', '2222', '2021-01-11 16:02:58', '1', '2021-01-11 16:03:07'),
+(43, 'P092043', '5930', '2021-01-12 09:29:46', '0', '0000-00-00 00:00:00'),
+(44, 'P092043', '4071', '2021-01-12 09:31:02', '0', '0000-00-00 00:00:00'),
+(45, 'P092043', '4586', '2021-01-12 09:32:25', '0', '0000-00-00 00:00:00'),
+(46, 'P092043', '2917', '2021-01-12 09:32:37', '0', '0000-00-00 00:00:00'),
+(47, 'P092043', '1174', '2021-01-12 10:00:55', '0', '0000-00-00 00:00:00'),
+(48, 'P092043', '0178', '2021-01-12 10:01:24', '0', '0000-00-00 00:00:00'),
+(49, 'P092043', '1960', '2021-01-12 10:52:00', '0', '0000-00-00 00:00:00'),
+(50, 'P092043', '5349', '2021-01-12 10:55:51', '0', '0000-00-00 00:00:00'),
+(51, 'P092043', '9505', '2021-01-12 11:02:25', '0', '0000-00-00 00:00:00'),
+(52, 'P092043', '0072', '2021-01-12 11:14:27', '1', '2021-01-12 11:14:58'),
+(53, 'P092043', '7921', '2021-01-12 14:34:30', '1', '2021-01-12 14:34:45');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pegawai`
+-- Table structure for table `pegawai`
 --
 
 CREATE TABLE `pegawai` (
@@ -265,7 +277,7 @@ CREATE TABLE `pegawai` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `pegawai`
+-- Dumping data for table `pegawai`
 --
 
 INSERT INTO `pegawai` (`id_pegawai`, `npp`, `nama`, `no_wa`, `id_kelompok`, `id_jabatan`, `otp`, `last_login`, `active`, `created_date`) VALUES
@@ -278,13 +290,13 @@ INSERT INTO `pegawai` (`id_pegawai`, `npp`, `nama`, `no_wa`, `id_kelompok`, `id_
 (57, '4223432', '344224', '34243', 2, 1, '', '0000-00-00 00:00:00', 0, '2021-01-09 00:00:00'),
 (56, '3221313', '32113123', '321213123', 2, 1, '', '0000-00-00 00:00:00', 0, '2021-01-09 00:00:00'),
 (55, '4324432', '324432', '4322', 1, 1, '', '0000-00-00 00:00:00', 0, '2021-01-09 00:00:00'),
-(64, 'P092043', 'Nur Muhammad Syafei', '6283875758003', 1, 1, '7204', '0000-00-00 00:00:00', 0, '2021-01-10 00:00:00'),
-(65, '1111111', 'Admin DGS', '6283875758003', 1, 5, '2222', '0000-00-00 00:00:00', 0, '2021-01-11 00:00:00');
+(64, 'P092043', 'Nur Muhammad Syafei', '6283875758003', 1, 1, '7921', '0000-00-00 00:00:00', 0, '2021-01-10 00:00:00'),
+(65, 'adminku', 'Admin DGS', '6283875758003', 1, 5, '2222', '0000-00-00 00:00:00', 0, '2021-01-11 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `surat`
+-- Table structure for table `surat`
 --
 
 CREATE TABLE `surat` (
@@ -301,13 +313,13 @@ CREATE TABLE `surat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `surat`
+-- Dumping data for table `surat`
 --
 
 INSERT INTO `surat` (`id_surat`, `judul_surat`, `perihal_surat`, `npp_tujuan`, `id_kelompok_tujuan`, `tahap_approve`, `disetujui_oleh`, `terbaca`, `npp_pemilik`, `tgl_buat`) VALUES
 (1, 'Tes Judul', 'Notin Rembers Dimas', 'P092043', 3, '0', '', '0', 'p026296', '2021-01-11 12:11:26'),
 (2, 'Tes Judul 2', 'Notin Telkom Sigma', 'p092043', 3, '0', '', '0', 'p026296', '2021-01-11 12:14:51'),
-(3, 'Tes Judul 2', 'Notin Telkom Sigma', 'p092043', 3, '0', '0', '0', '', '0000-00-00 00:00:00'),
+(3, 'Tes Judul 2', 'Notin Telkom Sigma', 'p092043', 3, '0', '0', '0', 'p026296', '0000-00-00 00:00:00'),
 (4, 'Tes Judul', 'Notin Rembers Dimas', 'P092043', 3, '0', '', '0', 'p026296', '2021-01-11 12:11:26'),
 (5, 'Tes Judul', 'Notin Rembers Dimas', 'P092043', 3, '0', '', '0', 'p026296', '2021-01-11 12:11:26'),
 (6, 'Tes Judul', 'Notin Rembers Dimas', 'P092043', 3, '0', '', '0', 'p026296', '2021-01-11 12:11:26'),
@@ -327,81 +339,75 @@ INSERT INTO `surat` (`id_surat`, `judul_surat`, `perihal_surat`, `npp_tujuan`, `
 --
 
 --
--- Indeks untuk tabel `divisi`
+-- Indexes for table `divisi`
 --
 ALTER TABLE `divisi`
   ADD PRIMARY KEY (`id_divisi`);
 
 --
--- Indeks untuk tabel `jabatan`
+-- Indexes for table `jabatan`
 --
 ALTER TABLE `jabatan`
   ADD PRIMARY KEY (`id_jabatan`);
 
 --
--- Indeks untuk tabel `kelompok`
+-- Indexes for table `kelompok`
 --
 ALTER TABLE `kelompok`
   ADD PRIMARY KEY (`id_kelompok`);
 
 --
--- Indeks untuk tabel `otp`
+-- Indexes for table `otp`
 --
 ALTER TABLE `otp`
   ADD PRIMARY KEY (`id_otp`);
 
 --
--- Indeks untuk tabel `pegawai`
+-- Indexes for table `pegawai`
 --
 ALTER TABLE `pegawai`
   ADD PRIMARY KEY (`id_pegawai`);
 
 --
--- Indeks untuk tabel `surat`
+-- Indexes for table `surat`
 --
 ALTER TABLE `surat`
   ADD PRIMARY KEY (`id_surat`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `divisi`
+-- AUTO_INCREMENT for table `divisi`
 --
 ALTER TABLE `divisi`
   MODIFY `id_divisi` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
--- AUTO_INCREMENT untuk tabel `jabatan`
+-- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
   MODIFY `id_jabatan` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
--- AUTO_INCREMENT untuk tabel `kelompok`
+-- AUTO_INCREMENT for table `kelompok`
 --
 ALTER TABLE `kelompok`
   MODIFY `id_kelompok` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
--- AUTO_INCREMENT untuk tabel `otp`
+-- AUTO_INCREMENT for table `otp`
 --
 ALTER TABLE `otp`
-  MODIFY `id_otp` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
-
+  MODIFY `id_otp` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
--- AUTO_INCREMENT untuk tabel `pegawai`
+-- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
   MODIFY `id_pegawai` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
-
 --
--- AUTO_INCREMENT untuk tabel `surat`
+-- AUTO_INCREMENT for table `surat`
 --
 ALTER TABLE `surat`
-  MODIFY `id_surat` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-COMMIT;
+  MODIFY `id_surat` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

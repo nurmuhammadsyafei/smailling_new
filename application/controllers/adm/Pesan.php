@@ -18,12 +18,9 @@ class Pesan extends MY_Controller
 
 	public function index(){
         $npp 			= $this->session->userdata('smailling_npp');       
-		$data['user']	= $this->db->query("SELECT * FROM pegawai a 
-												LEFT JOIN kelompok b on a.id_kelompok=b.id_kelompok 
-												LEFT JOIN divisi c   on b.id_divisi=c.id_divisi 
-												where npp='$npp'")->row_array();      
+		     
         // var_dump($data);die();                            
-        $this->page('adm/pesan/view',$data);
+        $this->page('adm/pesan/view');
 	}
 	
 	public function inbox(){
@@ -33,6 +30,30 @@ class Pesan extends MY_Controller
 		$data['unread'] = $this->db->query("SELECT COUNT(*)'unread' from surat where npp_tujuan='$npp' and terbaca='0'")->row_array();
         $data['total'] 	= $this->db->query("SELECT COUNT(*)'total' from surat where npp_tujuan='$npp'")->row_array(); 
 		$this->load->view('adm/pesan/inbox',$data);
+	}
+	public function notin(){
+		$npp 			= $this->session->userdata('smailling_npp');
+		$data['user']	= $this->db->query("SELECT * FROM pegawai a 
+												LEFT JOIN kelompok b on a.id_kelompok=b.id_kelompok 
+												LEFT JOIN divisi c   on b.id_divisi=c.id_divisi 
+												where npp='$npp'")->row_array();
+		$id_kel = $data['user']['id_kelompok'];
+		$data['mykelompok'] = $this->db->query("SELECT * FROM pegawai a 
+													LEFT JOIN kelompok b on a.id_kelompok=b.id_kelompok 
+													LEFT JOIN jabatan c on a.id_jabatan=c.id_jabatan 
+													where a.id_kelompok='$id_kel'")->result_array();
+		$data['approver']	= $this->db->query("SELECT * FROM pegawai a 
+													LEFT JOIN kelompok b on a.id_kelompok=b.id_kelompok 
+													LEFT JOIN jabatan c   on a.id_jabatan=c.id_jabatan  where a.id_kelompok='$id_kel' and a.id_jabatan='4'")->result_array();
+		$this->load->view('adm/pesan/notin',$data);
+	}
+	public function memo(){
+		$npp 			= $this->session->userdata('smailling_npp');
+		$data['user']	= $this->db->query("SELECT * FROM pegawai a 
+												LEFT JOIN kelompok b on a.id_kelompok=b.id_kelompok 
+												LEFT JOIN divisi c   on b.id_divisi=c.id_divisi 
+												where npp='$npp'")->row_array(); 
+		$this->load->view('adm/pesan/memo',$data);
 	}
 }
 

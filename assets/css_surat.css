@@ -1,7 +1,8 @@
 .surat-col {
-	height: 25px;
+	height: 100%;
 	/* background-color: cornflowerblue; */
-	margin-top: -8px;
+	margin-bottom:0px;
+	margin-top:0px;
 }
 .form-control {
 	height: 30px;

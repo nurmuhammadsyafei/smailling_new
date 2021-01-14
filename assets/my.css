@@ -257,6 +257,8 @@
 	transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s,
 		-webkit-box-shadow ease-in-out 0.15s;
 }
+
+
 .opsi {
 	border-top: 2px solid rgba(41, 128, 185, 1);
 	border-bottom: 2px solid rgba(41, 128, 185, 1);

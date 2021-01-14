@@ -1,4 +1,38 @@
 <link rel="stylesheet" href="<?= base_url('assets/css_surat.css')?>">
+<style>
+    .spin{
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 1000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 1000ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 1000ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    -o-transition: rotate(3600deg);
+    }
+    @-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+    }
+    @-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+    }
+    @keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+    }
+</style>
+
+
+
+
+
 
 
 <div class="container">
@@ -12,7 +46,7 @@
     </h1>
 </div><!-- /.page-header -->
 
-<div class="row">
+<div class="row"> 
     <div class="col-xs-12">
         <!-- PAGE CONTENT BEGINS -->
         <div class="row">
@@ -38,7 +72,7 @@
                             </span>
                         </li><!-- /.li-new-mail -->
 
-                        <li class="active">
+                        <li class="active" id="inboxmail">
                             <a data-toggle="tab" href="#" id="inboxmail">
                                 <i class="blue ace-icon fa fa-inbox bigger-130"></i>
                                 <span class="bigger-110">Inbox</span>
@@ -50,7 +84,7 @@
 
                     <div class="tab-content no-border no-padding" id="listinbox" >
                         <div id="inbox" class="tab-pane in active">
-                            <div class="message-container " id="loadinbox"></div>
+                            <div class="message-container loadmain" id=""></div>
                             </div>
                         </div>
                     </div>
@@ -67,25 +101,26 @@
 
 <script>
 $(document).ready(function() {
-    var datainbox = "<?= base_url('adm/pesan/inbox') ?>";
-    $('#loadinbox').load(datainbox);
+    $('.loadmain').html("<center><i class='ace-icon fa fa-spinner spin' style='font-size:50px;margin-top:7%'></i></center>");
+    var datainbox = "<?= base_url('adm/pesan/notin') ?>";
+    $('.loadmain').load(datainbox);
 
 
-    $('#notinmail').click(function(){
-        $('#listinbox').hide(100);
-        $('#form-tulis-notin').show(100);
-        $('#form-tulis-memo').hide(100);
+    $('#notinmail').click(function(){ 
+        $('.loadmain').html("<center><i class='ace-icon fa fa-spinner spin' style='font-size:50px;margin-top:7%'></i></center>");
+        var datanotin = "<?= base_url('adm/pesan/notin') ?>";
+        $('.loadmain').load(datanotin);
     })
     $('#memomail').click(function(){
-        $('#listinbox').hide(100);
-        $('#form-tulis-notin').hide(100);
-        $('#form-tulis-memo').show(100);
+        $('.loadmain').html("<center><i class='ace-icon fa fa-spinner spin' style='font-size:50px;margin-top:7%'></i></center>");
+        var datamemo = "<?= base_url('adm/pesan/memo') ?>";
+        $('.loadmain').load(datamemo);
     })
-    // $('#inboxmail').click(function(){
-    //     // alert("OKE")
-    //     var inboxdata = "<?= base_url('adm/pesan/inbox') ?>";
-    //     $('.loadinbox').load(inboxdata);
-    // })
+    $('#inboxmail').click(function(){
+        $('.loadmain').html("<center><i class='ace-icon fa fa-spinner spin' style='font-size:50px;margin-top:7%'></i></center>");
+        var datainbox = "<?= base_url('adm/pesan/inbox') ?>";
+        $('.loadmain').load(datainbox);
+    })
 
 
     $('#table_pesan').DataTable( {

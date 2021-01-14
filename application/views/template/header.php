@@ -9,6 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css')?>" />
   <link rel="stylesheet" href="<?= base_url('assets/font-awesome/4.5.0/css/font-awesome.min.css')?>" />
+  <link rel="stylesheet" href="<?= base_url('assets/fontawesome-free-5.15.1-web/css/all.css')?>" />
   <link rel="stylesheet" href="<?= base_url('assets/css/fonts.googleapis.com.css')?>" />
   <link rel="stylesheet" href="<?= base_url('assets/css/ace.min.css')?>" class="ace-main-stylesheet" id="main-ace-style" />
   <link rel="stylesheet" href="<?= base_url('assets/css/ace-skins.min.css')?>" />
