@@ -78,6 +78,12 @@
                                 <span class="bigger-110">Inbox</span>
                             </a>
                         </li>
+                        <li class="active" id="tesview">
+                            <a data-toggle="tab" href="#" id="tesview">
+                                <i class="blue ace-icon fa fa-inbox bigger-130"></i>
+                                <span class="bigger-110">tes view</span>
+                            </a>
+                        </li>
 
                        
                     </ul>
@@ -102,7 +108,7 @@
 <script>
 $(document).ready(function() {
     $('.loadmain').html("<center><i class='ace-icon fa fa-spinner spin' style='font-size:50px;margin-top:7%'></i></center>");
-    var datainbox = "<?= base_url('adm/pesan/notin') ?>";
+    var datainbox = "<?= base_url('adm/pesan/inbox') ?>";
     $('.loadmain').load(datainbox);
 
 
@@ -120,6 +126,11 @@ $(document).ready(function() {
         $('.loadmain').html("<center><i class='ace-icon fa fa-spinner spin' style='font-size:50px;margin-top:7%'></i></center>");
         var datainbox = "<?= base_url('adm/pesan/inbox') ?>";
         $('.loadmain').load(datainbox);
+    })
+    $('#tesview').click(function(){
+        $('.loadmain').html("<center><i class='ace-icon fa fa-spinner spin' style='font-size:50px;margin-top:7%'></i></center>");
+        var datapesan = "<?= base_url('adm/pesan/lihat_pesan/') ?>"+4;
+        $('.loadmain').load(datapesan);
     })
 
 

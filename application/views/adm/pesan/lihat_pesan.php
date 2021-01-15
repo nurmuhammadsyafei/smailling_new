@@ -5,34 +5,25 @@
         <div class="form-group surat-col" >
             <label class="col-sm-2 control-label no-padding-right" for="form-field-recipient"><b>Jenis Surat:</b></label>
             <div class="col-sm-2">
-            <input type="text" class="form-control" name="_jenissurat" readonly value="NOTIN">
+            <input type="text" class="form-control" name="_jenissurat" readonly value="<?= $surat['jenis_surat'] ?>">
             </div>
             <label class="col-sm-3 control-label no-padding-right" for="form-field-recipient"><b>Nomor :</b></label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" name="_nomor" readonly value="<?= $this->mylib->nonotin($user['id_kelompok']) ?>">
+                <input type="text" class="form-control" name="_nomor" readonly value="<?= $surat['nomor_surat'] ?>">
             </div>
         </div>
         <div class="form-group surat-col" >
             <label class="col-sm-2 control-label no-padding-right" for="form-field-recipient"><b>Dari :</b></label>
             <div class="col-sm-2">
-            <input type="text" class="form-control" readonly value="<?= $user['nama_kelompok'] ?>">
-            <input type="hidden" name="_darikelompok" value="<?= $user['id_kelompok'] ?>">
-            <input type="hidden" name="_npp_pembuat" value="<?= $user['npp'] ?>">
+            <input type="text" class="form-control" readonly value="<?= $surat['kelpembuat'] ?>">
             </div>
         </div>
 
         <div class="form-group surat-col" >
             <label class="col-sm-2 control-label no-padding-right" for="form-field-recipient"><b>Kepada :</b></label>
             <div class="col-sm-2">
-                <select name="_kepada" class="form-control  " required id="_kepada">
-                    <option value="">-</option>
-                    <?php
-                    $kelompok = $user['id_kelompok'];
-                    $klp=$this->db->query("SELECT * FROM kelompok where id_kelompok !='$kelompok'")->result_array();
-                    foreach($klp as $data){ ?>
-                        <option value="<?= $data['id_kelompok'] ?>"><?= $data['nama_kelompok'] ?></option>
-                    <?php } ?>
-                </select>
+            <input type="text" class="form-control" readonly value="<?= $surat['keltujuan'] ?>">
+                
             </div>
             <div class="col-sm-7 notif"style="display:none">
                 <span class="alert alert-danger notifalert" ></span>
@@ -42,7 +33,7 @@
         <div class="form-group surat-col" >
             <label class="col-sm-2 control-label no-padding-right" for="form-field-recipient"><b>Perihal :</b></label>
             <div class="col-sm-5">
-                <input type="text"class="form-control " name="_perihal" required id="_perihal">
+                <input type="text"class="form-control " name="_perihal" required id="_perihal" value="<?= $surat['perihal_surat'] ?>">
                 <!-- <textarea name="" id="" cols="0" rows="1"class="form-control"></textarea> -->
             </div>
         </div>
@@ -57,23 +48,22 @@
             </label>
 
             <div class="col-sm-7">
-                <textarea name="_pesan" id="_pesan" cols="0" required rows="2"class="form-control _pesan"></textarea>
+                <textarea name="_pesan" id="_pesan" cols="0" required rows="2"class="form-control _pesan"><?= $surat['isi_surat'] ?></textarea>
             </div>
         </div>
 
-
         <div class="form-group no-margin-bottom">
             <label class="col-sm-2 control-label no-padding-right">Surat:</label>
-            <div class="col-sm-3">
-                <div id="form-attachments">
-                    <input type="file" name="_surat" class="form-control" style="padding:2px" />
-                </div>
+            <div class="col-sm-1">
+                <a href="<?= base_url('surat/').$surat['file_surat']?>" target="_blank"  class="btn btn-danger" style="padding:0px 6px">
+                <i class="fas fa-file-pdf" style="color:white;font-size:30px;"></i>
+                </a>
             </div>
             <label class="col-sm-1 control-label no-padding-right">Lampiran:</label>
-            <div class="col-sm-3">
-                <div id="form-attachments">
-                    <input type="file" name="attachment[]" class="form-control" style="padding:2px" />
-                </div>
+            <div class="col-sm-1">
+                <a href="#" target="_blank"  class="btn btn-danger" style="padding:0px 6px">
+                <i class="far fa-file-pdf" style="color:white;font-size:30px;"></i>
+                </a>
             </div>
         </div>
 
@@ -136,73 +126,10 @@ $(document).ready(function(){
 
 
     $('#berikutnya').click(function(){
-        // alert("OK")
         $("#btnkirimsurat").css("display","block");
         $("#btnberikutnya").css("display","none");
         $('#validapprover').css('display',"block")
     });
-
-    // $('#btnkirimsurat').click(function(){
-    //     var perihal     = $('#_perihal').val();
-    //     var kepada      = $('#_kepada').val();
-    //     var pesan       = $('#_pesan').val();
-    //     var validator   = $('#_validator').val();
-    //     var approver    = $('#_approver').val();
-    //     var fd          = new FormData();
-    //     if(kepada==''){
-    //         $('.notifalert').html("Kelompok Tujuan Wajib Di Isi");
-    //         $('.notif').css("display",'block');
-    //         $('._kepada').focus();
-    //         setTimeout(function() {
-    //             $('.notif').css("display",'none');;
-    //         }, 10000);
-    //     }else{
-    //         if(perihal==''){
-    //             $('.notifalert').html("Perihal Wajib Di Isi");
-    //             $('.notif').css("display",'block');
-    //             $('._perihal').focus();
-    //             setTimeout(function() {
-    //                 $('.notif').css("display",'none');;
-    //             }, 10000);
-    //         }else{
-    //             if(pesan==''){
-    //             $('.notifalert').html("Pesan Wajib Di Isi");
-    //             $('.notif').css("display",'block');
-    //             $('._pesan').focus();
-    //             setTimeout(function() {
-    //                 $('.notif').css("display",'none');;
-    //             }, 10000);
-    //             }else{
-    //                 if(approver==''){
-    //                 $('.notifalert').html("Approver Wajib Di Isi");
-    //                 $('.notif').css("display",'block');
-    //                 $('._approver').focus();
-    //                 setTimeout(function() {
-    //                     $('.notif').css("display",'none');;
-    //                 }, 10000);
-    //                 }else{
-    //                     alert("OK");
-    //                     // fd.append('file',files[0]);
-    //                     // $.ajax({
-    //                     // url: '<?= base_url('adm/pesan/insertpesan') ?>',
-    //                     // type: 'post',
-    //                     // data: fd,
-    //                     // contentType: false,
-    //                     // processData: false
-    //                     // success: function(response){
-    //                     //     if(response != 0){
-    //                     //         $("#img").attr("src",response); 
-    //                     //         $(".preview img").show(); // Display image element
-    //                     //     }else{
-    //                     //         alert('file not uploaded');
-    //                     //     }
-    //                     // },
-    //                 });
-    //                 }
-    //             }
-    //         }
-    //     }
-    // })
 
 })
 </script>

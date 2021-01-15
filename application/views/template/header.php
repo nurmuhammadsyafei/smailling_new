@@ -102,7 +102,7 @@
 							<ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
 								<li class="dropdown-header">
 									<i class="ace-icon fa fa-envelope-o"></i>
-									<?= $blmterbaca['jml'].' Surat Belum Di Approve' ?>
+									<?= $blmterbaca['jml'].' Surat Belum Di Baca' ?>
 								</li>
 
 								<li class="dropdown-content">
@@ -111,7 +111,7 @@
               <?php 
               foreach($datasurat as $surat){ ?>
 										<li>
-											<a href="#" class="clearfix">
+											<a href="<?= base_url('adm/pesan')?>" class="clearfix">
 												<img src="<?= base_url('image/mail_orange.png')?>" class="msg-photo" alt="" />
 												<span class="msg-body">
 													<span class="msg-title">
@@ -229,7 +229,7 @@
         foreach($data as $data1){
           $data2[]=$data1['id_menu'];
         }
-        var_dump($user['id_jabatan']);
+        // var_dump($user['id_jabatan']);
        $this->db->where_in('id',$data2);
        $this->db->where('level',1);
        $this->db->order_by('sort','ASC');
@@ -244,8 +244,8 @@
        <?php foreach ($query as $menu_f) { ?>
         <li class="">
           <a href="<?= base_url().$menu_f['link'] ?>">
-            <i class="menu-icon fa <?= $menu_f['icon'] ?>"></i>
-            <span class="menu-text"> <?= $menu_f['nama']?> </span>
+            <i class="<?= $menu_f['icon'] ?>" style="padding-left:5px;"></i>
+            <span class="menu-text" style="padding-left:5px;"> <?= $menu_f['nama']?> </span>
           </a>
           <b class="arrow"></b>
         </li>
