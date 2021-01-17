@@ -10,6 +10,7 @@
             <label class="col-sm-3 control-label no-padding-right" for="form-field-recipient"><b>Nomor :</b></label>
             <div class="col-sm-2">
                 <input type="text" class="form-control" name="_nomor" readonly value="<?= $this->mylib->nonotin($user['id_kelompok']) ?>">
+                <input type="hidden"  name="_id_surat" readonly value="<?= $id_surat['id'] ?>">
             </div>
         </div>
         <div class="form-group surat-col" >
@@ -66,7 +67,7 @@
             <label class="col-sm-2 control-label no-padding-right">Surat:</label>
             <div class="col-sm-3">
                 <div id="form-attachments">
-                    <input type="file" name="_surat" class="form-control" style="padding:2px" />
+                    <input type="file" name="_surat" required class="form-control" style="padding:2px" />
                 </div>
             </div>
             <label class="col-sm-1 control-label no-padding-right">Lampiran:</label>
@@ -80,18 +81,27 @@
         <div class="hr dotted"></div>
 
         <div class="form-group no-margin-bottom" id="validapprover">
-            <label class="col-sm-2 control-label no-padding-right">
-                <span class="inline hidden-480"></span>
-                Validator 
-            </label>
-            <div class="col-sm-3">
-                <select name="_validator" id="_validator"class="form-control _validator">
-                    <option value="">- Pilih Validator -</option>
-                <?php foreach($mykelompok as $data){ ?>
-                    <option value="<?= $data['npp']?>"><?= $data['nama'].' ( '.$data['nama_jabatan'].' - '.$data['nama_kelompok'].' )'?></option>
-                <?php } ?>
-                </select>
+            <div class="col-sm-5">
+                <input type="hidden" name="jumlahanggota" id="jumlah-form" value="1">
+                <label class="col-md-5 control-label no-padding-right" style="margin-bottom:2px">
+                    <span class="inline hidden-480"></span>
+                    Validator 1
+                </label>
+                <div class="col-md-6">
+                    <select name="_validator[]" id="_validator"class="form-control _validator">
+                        <option value="">- Pilih Validator -</option>
+                    <?php foreach($mykelompok as $data){ ?>
+                        <option value="<?= $data['npp']?>"><?= $data['nama'].' ( '.$data['nama_jabatan'].' - '.$data['nama_kelompok'].' )'?></option>
+                    <?php } ?>
+                    </select>
+                </div>
+                <div class="col-md-1"><button type="button" class="btn btn-xs btn-inverse" id="addvldt"><i class="fas fa-plus-square"></i></button></div>
+                
+                <div class="" id="newvldt"></div>
+                
+
             </div>
+
             <label class="col-sm-1 control-label no-padding-right">
                 <span class="inline hidden-480"></span>
                 Approver 
@@ -104,6 +114,7 @@
                 <?php } ?>
                 </select>
             </div>
+            
         </div>
         <div class="hr dotted"></div>
 
@@ -142,67 +153,23 @@ $(document).ready(function(){
         $('#validapprover').css('display',"block")
     });
 
-    // $('#btnkirimsurat').click(function(){
-    //     var perihal     = $('#_perihal').val();
-    //     var kepada      = $('#_kepada').val();
-    //     var pesan       = $('#_pesan').val();
-    //     var validator   = $('#_validator').val();
-    //     var approver    = $('#_approver').val();
-    //     var fd          = new FormData();
-    //     if(kepada==''){
-    //         $('.notifalert').html("Kelompok Tujuan Wajib Di Isi");
-    //         $('.notif').css("display",'block');
-    //         $('._kepada').focus();
-    //         setTimeout(function() {
-    //             $('.notif').css("display",'none');;
-    //         }, 10000);
-    //     }else{
-    //         if(perihal==''){
-    //             $('.notifalert').html("Perihal Wajib Di Isi");
-    //             $('.notif').css("display",'block');
-    //             $('._perihal').focus();
-    //             setTimeout(function() {
-    //                 $('.notif').css("display",'none');;
-    //             }, 10000);
-    //         }else{
-    //             if(pesan==''){
-    //             $('.notifalert').html("Pesan Wajib Di Isi");
-    //             $('.notif').css("display",'block');
-    //             $('._pesan').focus();
-    //             setTimeout(function() {
-    //                 $('.notif').css("display",'none');;
-    //             }, 10000);
-    //             }else{
-    //                 if(approver==''){
-    //                 $('.notifalert').html("Approver Wajib Di Isi");
-    //                 $('.notif').css("display",'block');
-    //                 $('._approver').focus();
-    //                 setTimeout(function() {
-    //                     $('.notif').css("display",'none');;
-    //                 }, 10000);
-    //                 }else{
-    //                     alert("OK");
-    //                     // fd.append('file',files[0]);
-    //                     // $.ajax({
-    //                     // url: '<?= base_url('adm/pesan/insertpesan') ?>',
-    //                     // type: 'post',
-    //                     // data: fd,
-    //                     // contentType: false,
-    //                     // processData: false
-    //                     // success: function(response){
-    //                     //     if(response != 0){
-    //                     //         $("#img").attr("src",response); 
-    //                     //         $(".preview img").show(); // Display image element
-    //                     //     }else{
-    //                     //         alert('file not uploaded');
-    //                     //     }
-    //                     // },
-    //                 });
-    //                 }
-    //             }
-    //         }
-    //     }
-    // })
+    $('#addvldt').click(function(){
+        var jumlah = parseInt($("#jumlah-form").val());
+        var nextform = jumlah + 1;
+          $('#newvldt').append("<label class='col-md-5 control-label no-padding-right'>"+
+                                "<span class='inline hidden-480'></span>"+
+                                    "Validator "+nextform+ 
+                                "</label>"+
+                                "<div class='col-md-6'>"+
+                                    "<select name='_validator[]' id='_validator' class='form-control _validator'>"+
+                                        "<option value=''>- Pilih Validator -</option>"+
+                                    "<?php foreach($mykelompok as $data){ ?>"+
+                                        "<option value='<?= $data['npp']?>'><?= $data['nama'].' ( '.$data['nama_jabatan'].' - '.$data['nama_kelompok'].' )'?></option>"+
+                                    "<?php } ?>"+
+                                    "</select>"+
+                                "</div>");
+        $("#jumlah-form").val(nextform);
+    })
 
 })
 </script>
