@@ -8,7 +8,7 @@ class Pesan extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		// $this->load->library('custom_library');
+		date_default_timezone_set('Asia/Jakarta');
 		$this->load->library('malasngoding');
 		if($this->session->userdata('verivikasi') != "verivied"){
 			$this->session->set_flashdata('message','<div class="alert alert-danger text-center" role="alert">Anda Harus Login!</div>');
@@ -29,7 +29,7 @@ class Pesan extends MY_Controller
         $data['pesan'] 	= $this->db->query("SELECT * FROM surat a
                                             LEFT JOIN pegawai b on a.npp_pembuat=b.npp 
 											WHERE a.id_kelompok_pembuat='$user[id_kelompok]'
-											order by id_surat desc")->result_array();
+											order by tgl_buat desc")->result_array();
 		$data['unread'] = $this->db->query("SELECT COUNT(*)'unread' from surat where npp_approver='$npp' and terbaca='0'")->row_array();
         $data['total'] 	= $this->db->query("SELECT COUNT(*)'total' from surat where npp_approver='$npp'")->row_array(); 
 		$this->load->view('adm/pesan/inbox',$data);
@@ -65,7 +65,7 @@ class Pesan extends MY_Controller
 		
 		//insert validator
 		foreach($_POST['_validator'] as $data){
-			$vld=['id_pesan'=>$_POST['_id_surat'],'npp'=>$data,'masukan'=>''];
+			$vld=['id_surat'=>$_POST['_id_surat'],'npp'=>$data,'masukan'=>''];
 			$this->db->insert("validator",$vld);
 		}
 
@@ -148,14 +148,34 @@ class Pesan extends MY_Controller
 		$this->page('adm/pesan/myteam',$data);
 	}
 	
-	public function usulan(){
+
+	// SURAT PENDINGAN ATAU USULAN
+	public function us(){
+		$this->page('adm/pesan/usulan/view');
+	}
+	public function us_vw(){
 		$npp 			= $this->session->userdata('smailling_npp');
 		$user			= $this->db->query("SELECT * FROM pegawai where npp='$npp'")->row_array();
-		$data['usulan']	= $this->db->query("SELECT * FROM surat a
+		$data['usulan']	= $this->db->query("SELECT *,d.nama_kelompok 'keltujuan' FROM surat a
 											LEFT JOIN pegawai b on a.npp_pembuat=b.npp 
-											where id_kelompok_pembuat='$user[id_kelompok]'")->result_array();
-		$this->page('adm/pesan/usulan',$data);
+											LEFT JOIN (SELECT id_kelompok,nama_kelompok FROM kelompok) d ON a.id_kelompok_tujuan=d.id_kelompok
+											where id_kelompok_pembuat='$user[id_kelompok]' order by tgl_buat desc")->result_array();
+		$this->load->view('adm/pesan/usulan/list',$data);
 	}
+	public function us_det($id){
+		$data['surat']	= $this->db->query("SELECT a.*,b.*,c.nama_kelompok 'kelpembuat',d.nama_kelompok 'keltujuan' FROM surat a
+											LEFT JOIN (SELECT id_kelompok,nama_kelompok FROM kelompok) c ON a.id_kelompok_pembuat=c.id_kelompok
+											LEFT JOIN (SELECT id_kelompok,nama_kelompok FROM kelompok) d ON a.id_kelompok_tujuan=d.id_kelompok
+											LEFT JOIN validator b on a.id_surat=b.id_surat	where a.id_surat='$id'")->row_array();
+		// $npp	= $data
+		$data['vldt']	= $this->db->query("SELECT * FROM validator a
+											LEFT JOIN pegawai b on a.npp=b.npp where id_surat='$id'")->result_array();
+		$data['apprv']	= $this->db->query("SELECT * FROM validator a
+											LEFT JOIN pegawai b on a.npp=b.npp where id_surat='$id'")->result_array();
+		$this->load->view('adm/pesan/usulan/detail',$data);
+	}
+	// END SURAT PENDINGAN ATAU USULAN
+
 
 }
 

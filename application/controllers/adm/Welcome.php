@@ -47,16 +47,16 @@ class Welcome extends CI_Controller
 			$this->db->query("UPDATE pegawai set otp='$otp' where npp='$npp'"); // update di tabel pegawai
 			
     // SEND OTP TO SALES---
-    file_get_contents('https://eu191.chat-api.com/instance150259/sendMessage?token=9k4ol6iblh0tl78k', false, 
-    stream_context_create(['http' => [
-            'method'  => 'POST',
-            'header'  => 'Content-type: application/json',
-            'content' => json_encode(['phone' => $cek['no_wa'],'body' =>"_BNI Divisi SLN_
-Kode Verifikasi : ".$otp."
+//     file_get_contents('https://eu191.chat-api.com/instance150259/sendMessage?token=9k4ol6iblh0tl78k', false, 
+//     stream_context_create(['http' => [
+//             'method'  => 'POST',
+//             'header'  => 'Content-type: application/json',
+//             'content' => json_encode(['phone' => $cek['no_wa'],'body' =>"_BNI Divisi SLN_
+// Kode Verifikasi : ".$otp."
 
-*JANGAN* memberitahu kode rahasia ini ke siapapun termasuk pihak yang mengaku _BNI Divisi SLN_" ])
-        ]
-    ]));
+// *JANGAN* memberitahu kode rahasia ini ke siapapun termasuk pihak yang mengaku _BNI Divisi SLN_" ])
+//         ]
+//     ]));
         // END SEND OTP TO SALES---
 			echo json_encode([
 				'pesan'		=> "Npp Ditemukan !",  // kirim respon json, gapenting sih 
