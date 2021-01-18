@@ -3,7 +3,8 @@
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta charset="utf-8" />
-  <title>Login Page - SGV teva</title>
+  <link rel="shortcut icon" href="<?= base_url('image/amplop.gif') ?>"/>
+  <title>Login Page - Smailling</title>
   <meta name="description" content="User login page" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css') ?>" />

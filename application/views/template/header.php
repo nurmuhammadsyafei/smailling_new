@@ -3,7 +3,8 @@
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta charset="utf-8" />
-  <title>Dashboard - Teva</title>
+  <link rel="shortcut icon" href="<?= base_url('image/amplop.gif') ?>"/>
+  <title>Dashboard - Smailling</title>
 
   <meta name="description" content="overview &amp; stats" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -79,7 +80,7 @@
           <small>
             <!-- <i class="fa fa-leaf" id="loading"></i> -->
             <i class="fa fa-gear" id="loading" style="color:white;border-radius:20%"></i>
-            Tele<b> SGV</b>
+            SMail<b> BNI</b>
           </small>
         </a>
       </div>
@@ -111,7 +112,7 @@
               <?php 
               foreach($datasurat as $surat){ ?>
 										<li>
-											<a href="<?= base_url('adm/pesan')?>" class="clearfix">
+											<a href="<?= base_url('adm/pesan/us')?>" class="clearfix">
 												<img src="<?= base_url('image/mail_orange.png')?>" class="msg-photo" alt="" />
 												<span class="msg-body">
 													<span class="msg-title">

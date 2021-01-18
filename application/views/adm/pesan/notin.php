@@ -10,7 +10,8 @@
             <label class="col-sm-3 control-label no-padding-right" for="form-field-recipient"><b>Nomor :</b></label>
             <div class="col-sm-2">
                 <input type="text" class="form-control" name="_nomor" readonly value="<?= $this->mylib->nonotin($user['id_kelompok']) ?>">
-                <input type="hidden"  name="_id_surat" readonly value="<?= $id_surat['id'] ?>">
+                    <?php if($id_surat['id']==''){$id_surat='1';}else{$id_surat=$id_surat['id'];}?>
+                <input type="hidden"  name="_id_surat" readonly value="<?= $id_surat ?>">
             </div>
         </div>
         <div class="form-group surat-col" >
@@ -82,7 +83,8 @@
 
         <div class="form-group no-margin-bottom" id="validapprover">
             <div class="col-sm-5">
-                <input type="hidden" name="jumlahanggota" id="jumlah-form" value="1">
+                <input type="hidden" id="jumlah-form" value="1">
+                <input type="hidden" id="jumlah-form-approver" value="1">
                 <label class="col-md-5 control-label no-padding-right" style="margin-bottom:2px">
                     <span class="inline hidden-480"></span>
                     Validator 1
@@ -96,24 +98,36 @@
                     </select>
                 </div>
                 <div class="col-md-1"><button type="button" class="btn btn-xs btn-inverse" id="addvldt"><i class="fas fa-plus-square"></i></button></div>
-                
                 <div class="" id="newvldt"></div>
-                
-
+            </div>
+            <div class="col-sm-5">
+                <label class="col-md-3 control-label no-padding-right" style="margin-bottom:2px">
+                    <span class="inline hidden-480"></span>
+                    Approver 1
+                </label>
+                <div class="col-md-6">
+                    <select name="_approver[]" required id="_approver"class="form-control _approver">
+                        <option value="">- Pilih Approver -</option>
+                    <?php foreach($approver as $data){ ?>
+                        <option value="<?= $data['npp']?>"><?= $data['nama'].' ( '.$data['nama_jabatan'].' - '.$data['nama_kelompok'].' )'?></option>
+                    <?php } ?>
+                    </select>
+                </div>
+                <div class="col-md-1"><button type="button" class="btn btn-xs btn-inverse" id="addaprv"><i class="fas fa-plus-square"></i></button></div>
+                <div class="col-md-2"></div>
+                <div class="" id="newaprv"></div>
+            </div>
+            <div class="col-sm-2"style="color:transparent">_
             </div>
 
+<!-- 
             <label class="col-sm-1 control-label no-padding-right">
                 <span class="inline hidden-480"></span>
                 Approver 
             </label>
             <div class="col-sm-3">
-                <select name="_approver" required id="_approver"class="form-control _approver">
-                    <option value="">- Pilih Approver -</option>
-                <?php foreach($approver as $data){ ?>
-                    <option value="<?= $data['npp']?>"><?= $data['nama'].' ( '.$data['nama_jabatan'].' - '.$data['nama_kelompok'].' )'?></option>
-                <?php } ?>
-                </select>
             </div>
+            <div class="col-md-1"><button type="button" class="btn btn-xs btn-inverse" id="addvldt"><i class="fas fa-plus-square"></i></button></div> -->
             
         </div>
         <div class="hr dotted"></div>
@@ -156,6 +170,7 @@ $(document).ready(function(){
     $('#addvldt').click(function(){
         var jumlah = parseInt($("#jumlah-form").val());
         var nextform = jumlah + 1;
+        if(nextform<=5){
           $('#newvldt').append("<label class='col-md-5 control-label no-padding-right'>"+
                                 "<span class='inline hidden-480'></span>"+
                                     "Validator "+nextform+ 
@@ -168,7 +183,27 @@ $(document).ready(function(){
                                     "<?php } ?>"+
                                     "</select>"+
                                 "</div>");
-        $("#jumlah-form").val(nextform);
+            $("#jumlah-form").val(nextform);
+        }
+    })
+    $('#addaprv').click(function(){
+        var jumlah = parseInt($("#jumlah-form-approver").val());
+        var nextform = jumlah + 1;
+        if(nextform<=2){
+          $('#newaprv').append("<label class='col-md-3 control-label no-padding-right'>"+
+                                "<span class='inline hidden-480'></span>"+
+                                    "Approver "+nextform+ 
+                                "</label>"+
+                                "<div class='col-md-6'>"+
+                                    "<select name='_approver[]'  id='_approver'class='form-control _approver'>"+
+                                        "<option value=''>- Pilih Approver -</option>"+
+                                    "<?php foreach($approver as $data){ ?>"+
+                                        "<option value='<?= $data['npp']?>'><?= $data['nama'].' ( '.$data['nama_jabatan'].' - '.$data['nama_kelompok'].' )'?></option>"+
+                                    "<?php } ?>"+
+                                    "</select>"+
+                                "</div>");
+            $("#jumlah-form-approver").val(nextform);
+        }
     })
 
 })

@@ -83,7 +83,7 @@
                 Approver 
             </label>
             <div class="col-sm-3">
-                <?php $no=1;foreach($vldt as $data){ ?>
+                <?php $no=1;foreach($apprv as $data){ ?>
                     <h5><b><?= $no++.". ".$data['nama'] ?></b></h5>
                 <?php } ?>
             </div>

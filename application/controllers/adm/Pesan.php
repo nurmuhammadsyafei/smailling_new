@@ -61,12 +61,32 @@ class Pesan extends MY_Controller
 	}
 
 	public function insertpesan(){
-		// var_dump($_POST['_validator']);echo"<br><br>";
+		var_dump($_POST['_validator']);echo"<br><br>";
 		
+		// $vldt = $_POST['_validator'];
+		
+		// $data = [];
+		// array_push($data,$vldt);
+		// var_dump($data);
+
+		$npp = $_POST['_validator'];
+		foreach($npp as $data){
+			$npp = $data['npp'];
+		}
+		die();
 		//insert validator
-		foreach($_POST['_validator'] as $data){
-			$vld=['id_surat'=>$_POST['_id_surat'],'npp'=>$data,'masukan'=>''];
-			$this->db->insert("validator",$vld);
+		if($_POST['_validator'][0]==''){
+			}else{
+				foreach($_POST['_validator'] as $data){
+					$vld=['id_surat'=>$_POST['_id_surat'],'npp'=>$data,'masukan'=>''];
+					$this->db->insert("validator",$vld);
+				}
+			}
+			die();
+		//insert approver
+		foreach($_POST['_approver'] as $data){
+			$aprvr=['id_surat'=>$_POST['_id_surat'],'npp'=>$data,'masukan'=>''];
+			$this->db->insert("approver",$aprvr);
 		}
 
 		//insert surat
@@ -88,7 +108,7 @@ class Pesan extends MY_Controller
 			'npp_pembuat'				=> $_POST['_npp_pembuat'], //surat file
 			'terbaca'					=> '0', //lampiran file
 			// 'npp_validator'				=> $_POST['_validator'], //validator
-			'npp_approver'				=> $_POST['_approver'], //approver
+			// 'npp_approver'				=> $_POST['_approver'], //approver
 			'tgl_buat'					=> $tglbuat //approver
 		];
 		$this->db->insert('surat',$data);
@@ -170,8 +190,10 @@ class Pesan extends MY_Controller
 		// $npp	= $data
 		$data['vldt']	= $this->db->query("SELECT * FROM validator a
 											LEFT JOIN pegawai b on a.npp=b.npp where id_surat='$id'")->result_array();
-		$data['apprv']	= $this->db->query("SELECT * FROM validator a
+		$data['apprv']	= $this->db->query("SELECT * FROM approver a
 											LEFT JOIN pegawai b on a.npp=b.npp where id_surat='$id'")->result_array();
+		// $data['vldt']	= $this->db->query("SELECT * FROM approver a
+		// 									LEFT JOIN pegawai b on a.npp=b.npp where id_surat='$id'")->result_array();
 		$this->load->view('adm/pesan/usulan/detail',$data);
 	}
 	// END SURAT PENDINGAN ATAU USULAN
